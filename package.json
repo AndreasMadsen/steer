@@ -1,0 +1,39 @@
+{
+  "name": "steer",
+  "description": "Use steer to control your chrome (the browser)",
+  "version": "0.2.0",
+  "author": "Andreas Madsen <amwebdk@gmail.com>",
+  "main": "./steer.js",
+  "scripts": {
+    "test": "rm -rf test/cache && rm -rf test/chrome.out && tap test/browser/*"
+  },
+  "repository" : {
+    "type": "git",
+    "url": "git://github.com/AndreasMadsen/steer.git"
+  },
+  "keywords": [
+    "google chrome",
+    "chrome",
+    "remote",
+    "crawler",
+    "webkit",
+    "inspector",
+    "extension",
+    "browser",
+    "control"
+  ],
+  "dependencies": {
+    "ws": "0.4.x",
+    "temp": "0.6.x",
+    "async": "0.2.x",
+    "rimraf": "2.2.x",
+    "inspector": "0.4.x"
+  },
+  "devDependencies": {
+    "tap": "0.4.x",
+    "filed": "0.1.x",
+    "director": "1.2.x",
+    "endpoint": "0.4.x"
+  },
+  "license": "MIT"
+}

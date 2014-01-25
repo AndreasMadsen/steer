@@ -1,0 +1,12 @@
+<script>
+    // Collects all the 3th party stuff there is installed
+    var plugins;
+    if (navigator.plugins) {
+        plugins = Array.prototype.slice.call(navigator.plugins)
+                .map(function (plugin) { return plugin.filename; });
+    } else {
+        plugins = [];
+    }
+
+    console.log(plugins);
+</script>

@@ -1,0 +1,15 @@
+{
+    "name": "crawler2 chrome extension",
+    "version": "0.1",
+    "description": "An extension to take screenshots",
+    "background": {
+        "persistent": true,
+        "scripts": ["background.js"]
+    },
+    "permissions": [
+        "<all_urls>",
+        "browsingData",
+        "tabs"
+    ],
+    "manifest_version": 2
+}
