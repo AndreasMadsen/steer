@@ -54,7 +54,7 @@ var chrome = steer({
 });
 ```
 
-## chrome.inspector
+### chrome.inspector
 
 An insterface for the WebKit remote inspector API, for documentation see the
 [inspector](https://github.com/admazely/inspector) module.
@@ -81,7 +81,7 @@ inspector.Runtime.evaluate(
 );
 ```
 
-## chrome.extension
+### chrome.extension
 
 A simple interface for the chrome extension API. For the full API see
 [http://developer.chrome.com/extensions/api_index.html](http://developer.chrome.com/extensions/api_index.html)
@@ -113,7 +113,7 @@ chrome.extension.send('chrome.browsingData.remove', {}, {
 });
 ```
 
-## chrome.process
+### chrome.process
 
 The standard node process object for the `google-chrome` process.
 
@@ -124,28 +124,28 @@ chrome.once('open', function () {
 });
 ```
 
-## chrome.close([callback])
+### chrome.close([callback])
 
 Close the browser in a gracefull way, this will cleanup the temporary
 directories and shutdown the a server used for blocking requests and finally
 close the browser. The optional callback is just attached to the `close` event.
 
-## chrome.destory()
+### chrome.destory()
 
 This will simply kill the browser. You should call `process.exit()` after this
 as there will still be active stuff running.
 
-## chrome.on('open')
+### chrome.on('open')
 
 Everything is ready, you can start navigating the browser now. Until this
 event fires you should expect `inspector`, `extensions` and `process` to be
 null.
 
-## chrome.on('close')
+### chrome.on('close')
 
 This event emits when the browser closes.
 
-## chrome.on('error')
+### chrome.on('error')
 
 An error occurred. As there are many things running in order to manage the
 remote connection (actually there are more) this can be caused by quite a lot.
