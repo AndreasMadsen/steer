@@ -10,7 +10,7 @@ npm install steer
 
 ## Dependencies
 
-You will need to install `google-chrome` (not chromeium) on your machile first.
+You will need to install `google-chrome` (not chromeium) on your machine first.
 You can find it here: [https://www.google.com/intl/en/chrome/browser/](https://www.google.com/intl/en/chrome/browser/)
 
 ## Documentation
