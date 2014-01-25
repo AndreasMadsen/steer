@@ -31,6 +31,16 @@ function BrowserSteer(options, callback) {
     //  attach callback to open event
     if (callback) this.once('open', callback);
 
+    // Do some options validation
+    if (typeof options.cache !== 'string') throw TypeError('cache setting must be a string');
+    if (typeof options.inspectorPort !== 'number') throw TypeError('inspectorPort setting must be a number');
+
+    // Handle default settings
+    if (!options.size) options.size = [800, 600];
+    if (!options.blocked) options.blocked = [];
+    if (!options.userAgent) options.size = null;
+
+
     // This is not in the prototype chain, since that would unbound
     // it to the this keyword.
     var handlers = this._handlers = {
@@ -127,15 +137,20 @@ function BrowserSteer(options, callback) {
             ];
 
             // create custom chromium arguments object
-            var args = BrowserSteer.args.concat([
-                '--user-agent=' + options.userAgent,
+            var argsOptions = [
                 '--user-data-dir=' + self.userDir,
                 '--disk-cache-dir=' + options.cache,
                 '--remote-debugging-port=' + options.inspectorPort,
                 '--load-extension=' + self.extension.dir,
                 '--host-rules=' + hostRules,
                 '--window-size=' + windowSize.join(',')
-            ]);
+            ];
+
+            if (options.userAgent) {
+                argsOptions.push('--user-agent=' + options.userAgent);
+            }
+
+            var args = BrowserSteer.args.concat(argsOptions);
 
             // spawn a chromium process
             self.process = spawn(chromium, args);
