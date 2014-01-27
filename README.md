@@ -16,15 +16,7 @@ You can find it here: [https://www.google.com/intl/en/chrome/browser/](https://w
 ## Example
 
 This example starts a `google-chrome` browser navigates to http://google.com and
-then query the `document.title` value. As you can see the API is quite complicated
-but you do pretty anything with it. This module supports two binding APIs:
-
-* WebKit remote inspector [http://developer.chrome.com/extensions/api_index.html](https://github.com/admazely/inspector/tree/master/doc)
-* Chrome Extension API [http://developer.chrome.com/extensions/api_index.html](http://developer.chrome.com/extensions/api_index.html)
-
-I would personally recomed using `WebKit remote inspector` API, this is what
-the "Chrome DevTools" uses, so you should be familiar with whats possible.
-However it can do more than just the GUI allows.
+then query the `document.title` value.
 
 ```javascript
 var steer = require('steer');
@@ -49,6 +41,25 @@ chrome.once('open', function () {
   });
 });
 ```
+
+As you can see the API is quite complicated but you do pretty anything with it.
+This module supports two binding APIs:
+
+* WebKit remote inspector [http://developer.chrome.com/extensions/api_index.html](https://github.com/admazely/inspector/tree/master/doc)
+* Chrome Extension API [http://developer.chrome.com/extensions/api_index.html](http://developer.chrome.com/extensions/api_index.html)
+
+I would personally recomed using `WebKit remote inspector` API, this is what
+the "Chrome DevTools" uses, so you should be familiar with whats possible.
+However it can do more than just what the GUI allows but sometimes you have
+to use the Extension API as well.
+
+Futhermore there are modules there abstacts the complicated API away, there
+are some:
+
+* [steer-screenshot](https://github.com/AndreasMadsen/steer-screenshot)
+* [steer-evaluate](https://github.com/AndreasMadsen/steer-evaluate)
+* [steer-loaded](https://github.com/AndreasMadsen/steer-loaded)
+* [steer-reset](https://github.com/AndreasMadsen/steer-reset)
 
 ## Documentation
 
