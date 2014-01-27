@@ -13,6 +13,43 @@ npm install steer
 You will need to install `google-chrome` (not chromeium) on your machine first.
 You can find it here: [https://www.google.com/intl/en/chrome/browser/](https://www.google.com/intl/en/chrome/browser/)
 
+## Example
+
+This example starts a `google-chrome` browser navigates to http://google.com and
+then query the `document.title` value. As you can see the API is quite complicated
+but you do pretty anything with it. This module supports two binding APIs:
+
+* WebKit remote inspector [http://developer.chrome.com/extensions/api_index.html](https://github.com/admazely/inspector/tree/master/doc)
+* Chrome Extension API [http://developer.chrome.com/extensions/api_index.html](http://developer.chrome.com/extensions/api_index.html)
+
+I would personally recomed using `WebKit remote inspector` API, this is what
+the "Chrome DevTools" uses, so you should be familiar with whats possible.
+However it can do more than just the GUI allows.
+
+```javascript
+var steer = require('steer');
+var path = require('path');
+
+var chrome = steer({
+  cache: path.resolve(__dirname, 'cache'),
+  inspectorPort: 7510
+});
+
+chrome.once('open', function () {
+  chrome.inspector.Page.enable(function (err) {
+    chrome.inspector.Page.navigate('http://google.com', function(err) {
+      chrome.inspector.Page.once('domContentEventFired', function () {
+        chrome.inspector.Runtime.evaluate('(function () { return document.title; })();', function (err, res) {
+          console.log(res.result.value); // Google
+
+          chrome.close();
+        });
+      });
+    });
+  });
+});
+```
+
 ## Documentation
 
 When requireing this module you get a steer constructor.
@@ -28,7 +65,7 @@ private profile. This means it won't interfere with other `google-chrome` proces
 var chrome = steer(settings, [callback]);
 ```
 
-The `steer` contructor takes a warity of settings where some are optional.
+The `steer` contructor takes a warity of `settings` where some are optional.
 
 * `cache` (required). The directory where the cached files will be stored. This
   should be reused when your application craches.
@@ -43,14 +80,14 @@ The `steer` contructor takes a warity of settings where some are optional.
 
 ```javascript
 var chrome = steer({
-    cache: path.resolve(__dirname, 'cache'),
-    inspectorPort: 7510,
-    userAgent: 'SteerBot/1.0',
-    blocked: [
-        'googleadservices.com',
-        'google-analytics.com'
-    ],
-    size: [1280, 1024]
+  cache: path.resolve(__dirname, 'cache'),
+  inspectorPort: 7510,
+  userAgent: 'SteerBot/1.0',
+  blocked: [
+    'googleadservices.com',
+    'google-analytics.com'
+  ],
+  size: [1280, 1024]
 });
 ```
 
@@ -63,9 +100,9 @@ For example, to navigate to a page:
 
 ```javascript
 chrome.inspector.Page.navigate('http://google.com', function(err) {
-    if (err) throw err;
+  if (err) throw err;
 
-    // chrome is now at google.com, but the page might stil be loading
+  // chrome is now at google.com, but the page might stil be loading
 });
 ```
 
@@ -73,11 +110,10 @@ Another example, to evaluate some javascript within the browser:
 
 ```javascript
 inspector.Runtime.evaluate(
-    'return document.innerHTML.length;',
-    '', true, false, undefined, true,
-    function (err, response) {
-        console.log(response.result.value);
-    }
+  '(function () { return document.innerHTML.length; })();',
+  function (err, response) {
+    console.log(response.result.value);
+  }
 );
 ```
 
@@ -92,10 +128,10 @@ For example, to take a screenshot do:
 var BASE64_URL_PREFIX = 'data:image/jpeg;base64,';
 
 chrome.extension.send('chrome.tabs.captureVisibleTab', null, { quality: 60 }, function(err, img) {
-    var data = new Buffer(img.slice(BASE64_URL_PREFIX.length), 'base64');
-    fs.writeFile('image.jpeg', data, function () {
-        // screenshot saved
-    });
+  var data = new Buffer(img.slice(BASE64_URL_PREFIX.length), 'base64');
+  fs.writeFile('image.jpeg', data, function () {
+    // screenshot saved
+  });
 });
 ```
 
@@ -103,13 +139,13 @@ Another example, to clear the cookies and all other sort of browser states do:
 
 ```javascript
 chrome.extension.send('chrome.browsingData.remove', {}, {
-    'webSQL': true,
-    'cookies': true,
-    'indexedDB': true
+  'webSQL': true,
+  'cookies': true,
+  'indexedDB': true
 }, function (err) {
-    if (err) throw err;
+  if (err) throw err;
 
-    // stuff removed
+  // stuff removed
 });
 ```
 
@@ -119,8 +155,8 @@ The standard node process object for the `google-chrome` process.
 
 ```javascript
 chrome.once('open', function () {
-    chrome.process.stdout.pipe(process.stdout);
-    chrome.process.stderr.pipe(process.stderr);
+  chrome.process.stdout.pipe(process.stdout);
+  chrome.process.stderr.pipe(process.stderr);
 });
 ```
 

@@ -11,11 +11,8 @@ module.exports = function(options, callback) {
     }
 
     var settings = {
-        userAgent: 'Agent/1.0 (custom)',
         cache: path.resolve(__dirname, 'cache'),
-        inspectorPort: 6020,
-        blocked: [],
-        size: [800, 600]
+        inspectorPort: 6020
     };
 
     // Simple one level merge of settings

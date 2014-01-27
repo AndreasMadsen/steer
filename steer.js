@@ -38,7 +38,7 @@ function BrowserSteer(options, callback) {
     // Handle default settings
     if (!options.size) options.size = [800, 600];
     if (!options.blocked) options.blocked = [];
-    if (!options.userAgent) options.size = null;
+    if (!options.userAgent) options.userAgent = null;
 
 
     // This is not in the prototype chain, since that would unbound

@@ -12,40 +12,57 @@ var server = http.createServer();
 
 server.on('request', router.dispatch.bind(router));
 server.listen(0, function() {
-    var host = 'http://127.0.0.1:' + server.address().port;
+  var host = 'http://127.0.0.1:' + server.address().port;
 
-    var chrome = browser(function() {
+  // returns all cookies there stil exists
+  var userAgentSend = null;
+  router.get('/get', function() {
+    userAgentSend = this.req.headers['user-agent'];
+    this.res.end();
+  });
 
-        test('custom user-agent send by browser', function(t) {
-            var userAgentSend = null;
+  test('default user-agent send by browser', function(t) {
+    var chrome = browser(function () {
 
-            // returns all cookies there stil exists
-            router.get('/get', function() {
-                userAgentSend = this.req.headers['user-agent'];
-                this.res.end();
-            });
+      // Executed when page is loaded
+      chrome.inspector.Page.once('loadEventFired', function() {
+        // the server did rescive a custom user agent
+        t.equal(userAgentSend.slice(0, 11), 'Mozilla/5.0');
 
-            // Executed when page is loaded
-            chrome.inspector.Page.once('loadEventFired', function() {
-                // the server did rescive a custom user agent
-                t.equal(userAgentSend, 'Agent/1.0 (custom)');
+        chrome.close(t.end.bind(t));
+      });
 
-                t.end();
-            });
-
-            // Naviagte the browser to the page where userAgentSend is set
-            chrome.inspector.Page.navigate(host + '/get', function(err) {
-                t.equal(err, null);
-            });
-        });
-
-        test('close chromium', function(t) {
-            chrome.close(function() {
-                server.close(function() {
-                    t.end();
-                });
-            });
-        });
+      // Naviagte the browser to the page where userAgentSend is set
+      chrome.inspector.Page.navigate(host + '/get', function(err) {
+        t.equal(err, null);
+      });
     });
+  });
+
+  test('custom user-agent send by browser', function(t) {
+    var chrome = browser({
+      userAgent: 'CustomAgent/1.0'
+    }, function () {
+
+      // Executed when page is loaded
+      chrome.inspector.Page.once('loadEventFired', function() {
+        // the server did rescive a custom user agent
+        t.equal(userAgentSend, 'CustomAgent/1.0');
+
+        chrome.close(t.end.bind(t));
+      });
+
+      // Naviagte the browser to the page where userAgentSend is set
+      chrome.inspector.Page.navigate(host + '/get', function(err) {
+        t.equal(err, null);
+      });
+    });
+  });
+
+  test('close server', function (t) {
+    server.close(function() {
+      t.end();
+    });
+  });
 
 });
