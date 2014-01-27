@@ -1,15 +1,13 @@
 {
-    "name": "crawler2 chrome extension",
+    "name": "steer chrome extension",
     "version": "0.1",
-    "description": "An extension to take screenshots",
+    "description": "An extension binding the steer module to the extension API",
     "background": {
         "persistent": true,
         "scripts": ["background.js"]
     },
     "permissions": [
-        "<all_urls>",
-        "browsingData",
-        "tabs"
+        "<all_urls>"
     ],
     "manifest_version": 2
 }

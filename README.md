@@ -77,6 +77,8 @@ The `steer` contructor takes a warity of `settings` where some are optional.
   could be ad sites or other websites you don't which to spend time on.
 * `size` (optional). This will be the inner size of the chrome frame. By
   default this is `[800, 600]` where `800` is the width and `600` is the height.
+* `permissions` (optional). This is an array of the permissions there should
+  be given to the chrome extension there binds this module to the extension API.
 
 ```javascript
 var chrome = steer({
@@ -87,7 +89,10 @@ var chrome = steer({
     'googleadservices.com',
     'google-analytics.com'
   ],
-  size: [1280, 1024]
+  size: [1280, 1024],
+  permissions: [
+    'browsingData'
+  ]
 });
 ```
 
@@ -125,6 +130,8 @@ A simple interface for the chrome extension API. For the full API see
 For example, to take a screenshot do:
 
 ```javascript
+// Note this requires `taps` permissions
+
 var BASE64_URL_PREFIX = 'data:image/jpeg;base64,';
 
 chrome.extension.send('chrome.tabs.captureVisibleTab', null, { quality: 60 }, function(err, img) {
@@ -138,6 +145,8 @@ chrome.extension.send('chrome.tabs.captureVisibleTab', null, { quality: 60 }, fu
 Another example, to clear the cookies and all other sort of browser states do:
 
 ```javascript
+// Note this requires `browsingData` permissions
+
 chrome.extension.send('chrome.browsingData.remove', {}, {
   'webSQL': true,
   'cookies': true,

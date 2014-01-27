@@ -39,7 +39,7 @@ function BrowserSteer(options, callback) {
     if (!options.size) options.size = [800, 600];
     if (!options.blocked) options.blocked = [];
     if (!options.userAgent) options.userAgent = null;
-
+    if (!options.permissions) options.permissions = null;
 
     // This is not in the prototype chain, since that would unbound
     // it to the this keyword.
@@ -58,11 +58,11 @@ function BrowserSteer(options, callback) {
         function startupExtension(done) {
             if (self.closed) return done(null);
 
-            self.extension = new Extension(done);
+            self.extension = new Extension(options, done);
             self.extension.on('error', handlers.relayError);
         },
 
-        // create a chromium profile directory
+        // create a chrome profile directory
         function createProfile(done) {
             if (self.closed) return done(null);
 
