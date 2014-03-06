@@ -49,11 +49,11 @@ This module supports two binding APIs:
 * Chrome Extension API [http://developer.chrome.com/extensions/api_index.html](http://developer.chrome.com/extensions/api_index.html)
 
 I would personally recomed using `WebKit remote inspector` API, this is what
-the "Chrome DevTools" uses, so you should be familiar with whats possible.
+the "Chrome DevTools" uses, so you should be familiar with what's possible.
 However it can do more than just what the GUI allows but sometimes you have
 to use the Extension API as well.
 
-Futhermore there are modules there abstacts the complicated API away, there
+Futhermore there are modules there abstacts the complicated API away, here
 are some:
 
 * [steer-screenshot](https://github.com/AndreasMadsen/steer-screenshot)
