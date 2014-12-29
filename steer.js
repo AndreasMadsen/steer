@@ -217,11 +217,6 @@ BrowserSteer.args = [
     '--no-process-singleton-dialog',
     '--safebrowsing-disable-auto-update',
 
-    // This was for a proxy, that don't exist in the crawl-server
-    // but this may stil make sence in case the webshop has an
-    // old certificate.
-    '--ignore-certificate-errors',
-
     // Its asummed that these flags will speed up performance
     '--disable-client-side-phishing-detection',
     '--disable-improved-download-protection',
