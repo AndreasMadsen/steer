@@ -17,7 +17,7 @@ server.listen(0, function() {
 
     // This is setup to block the localhost alias
     var chrome = browser({
-        blocked: ['localhost']
+        blocked: ['localhost:' + port]
     }, function() {
 
         test('host block rules', function(t) {
