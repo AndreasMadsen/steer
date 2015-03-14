@@ -1,7 +1,7 @@
 {
   "name": "steer",
   "description": "Use steer to control your chrome (the browser)",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "./steer.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "temp": "0.8.x",
     "async": "0.9.x",
     "rimraf": "2.3.x",
-    "inspector": "0.4.x"
+    "inspector": "0.5.x"
   },
   "devDependencies": {
     "tap": "0.6.x",
