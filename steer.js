@@ -40,6 +40,7 @@ function BrowserSteer(options, callback) {
     if (!options.blocked) options.blocked = [];
     if (!options.userAgent) options.userAgent = null;
     if (!options.permissions) options.permissions = null;
+    if (!options.extensions) options.extensions = [];
 
     // This is not in the prototype chain, since that would unbound
     // it to the this keyword.
@@ -136,12 +137,14 @@ function BrowserSteer(options, callback) {
                 options.size[1] + frame[platform][1]
             ];
 
+            var extensions = [ self.extension.dir ].concat(options.extensions);
+
             // create custom chromium arguments object
             var argsOptions = [
                 '--user-data-dir=' + self.userDir,
                 '--disk-cache-dir=' + options.cache,
                 '--remote-debugging-port=' + options.inspectorPort,
-                '--load-extension=' + self.extension.dir,
+                '--load-extension=' + extensions.join(","),
                 '--host-rules=' + hostRules,
                 '--window-size=' + windowSize.join(',')
             ];
